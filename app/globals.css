@@ -1,0 +1,171 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --font-crimson: "Crimson Pro", Georgia, serif;
+  --font-dm-sans: "DM Sans", system-ui, sans-serif;
+  --font-dm-mono: "DM Mono", "Courier New", monospace;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: #0a0a0f;
+  color: #e8e6f0;
+  font-family: var(--font-dm-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 4px;
+}
+::-webkit-scrollbar-track {
+  background: #12121c;
+}
+::-webkit-scrollbar-thumb {
+  background: #252535;
+  border-radius: 2px;
+}
+
+/* Card component */
+.card-face {
+  background: #f5f0e8;
+  color: #1a1a1a;
+  border-radius: 6px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.4);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  cursor: default;
+  user-select: none;
+}
+
+.card-face:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 16px rgba(0,0,0,0.5);
+}
+
+.card-face.selectable {
+  cursor: pointer;
+}
+
+.card-face.selectable:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 8px 24px rgba(196, 151, 58, 0.3);
+  outline: 2px solid #c4973a;
+}
+
+.card-face.selected {
+  outline: 2px solid #c4973a;
+  transform: translateY(-8px);
+}
+
+.card-back {
+  background: #1a2540;
+  border: 2px solid #253050;
+  border-radius: 6px;
+}
+
+/* Combat log */
+.combat-log {
+  scrollbar-width: thin;
+  scrollbar-color: #252535 #12121c;
+}
+
+/* Animations */
+@keyframes dealCard {
+  from { opacity: 0; transform: translateY(-16px) scale(0.85); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes fadeSlideUp {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes shakeX {
+  0%, 100% { transform: translateX(0); }
+  20% { transform: translateX(-8px); }
+  40% { transform: translateX(8px); }
+  60% { transform: translateX(-5px); }
+  80% { transform: translateX(5px); }
+}
+
+@keyframes pulseOnce {
+  0% { opacity: 1; }
+  50% { opacity: 0.3; }
+  100% { opacity: 1; }
+}
+
+.deal-anim {
+  animation: dealCard 0.35s ease-out both;
+}
+
+.fade-slide-up {
+  animation: fadeSlideUp 0.25s ease-out both;
+}
+
+.shake-anim {
+  animation: shakeX 0.5s ease-in-out;
+}
+
+.pulse-once {
+  animation: pulseOnce 0.4s ease;
+}
+
+/* Health bar */
+.hp-bar {
+  transition: width 0.5s ease-in-out;
+}
+
+/* Map node */
+.map-node {
+  transition: all 0.15s ease;
+}
+
+.map-node.available {
+  cursor: pointer;
+}
+
+.map-node.available:hover {
+  transform: scale(1.08);
+}
+
+/* Tooltip */
+.tooltip {
+  position: relative;
+}
+
+.tooltip:hover .tooltip-content {
+  display: block;
+}
+
+.tooltip-content {
+  display: none;
+  position: absolute;
+  bottom: calc(100% + 6px);
+  left: 50%;
+  transform: translateX(-50%);
+  background: #1a1a28;
+  border: 1px solid #2a2a3a;
+  border-radius: 6px;
+  padding: 6px 10px;
+  font-size: 12px;
+  white-space: nowrap;
+  z-index: 100;
+  color: #e8e6f0;
+  pointer-events: none;
+}
+
+/* Relic badge */
+.relic-common { border-color: #6a6880; }
+.relic-uncommon { border-color: #4c7ac9; }
+.relic-rare { border-color: #c4973a; }
